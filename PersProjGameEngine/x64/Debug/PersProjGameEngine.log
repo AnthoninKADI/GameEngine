@@ -1,0 +1,13 @@
+﻿  Log.cpp
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(9,11): error C2065: 'SDL_LOG_CATEGORY_': undeclared identifier
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(10,2): error C2146: syntax error: missing '}' before identifier 'Audio'
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(11,2): error C2065: 'Error': undeclared identifier
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(12,2): error C2065: 'Input': undeclared identifier
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(13,2): error C2065: 'Render': undeclared identifier
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(14,2): error C2065: 'System': undeclared identifier
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(15,2): error C2065: 'Test': undeclared identifier
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(16,2): error C2065: 'Video': undeclared identifier
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(17,1): error C2059: syntax error: '}'
+C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Log.h(17,1): error C2143: syntax error: missing ';' before '}'
+  Main.cpp
+  Generating Code...

@@ -1,5 +1,8 @@
 #pragma once
 #include "Window.h"
+#include "Renderer.h"
+#include "Vector2.h"
+
 class Game
 {
 public:
@@ -15,7 +18,18 @@ public:
 	Game& operator=(Game&&) = delete;
 
 private:
-	Game():isRunning(true){}
+	Game():
+		isRunning(true),
+		ballPos({100, 100}),
+		ballVelocity({500, 500}),
+		paddlePos({50, 100}),
+		paddleVelocity({0, 450}),
+		paddleDirection(0),
+		wallThickness(10),
+		topWall(Rectangle()),
+		bottomWall(Rectangle()),
+		rightWall(Rectangle())
+	{}
 
 public:
 	bool initialize();
@@ -24,10 +38,26 @@ public:
 
 private:
 	void processInput();
-	void update();
+	void update(float dt);
 	void render();
 
-	Window window;
 	bool isRunning;
+	Window window;
+	Renderer renderer;
+
+	Rectangle topWall;
+	Rectangle bottomWall;
+	Rectangle rightWall;
+	const float wallThickness = 10;
+
+	Vector2 ballPos;
+	Vector2 ballVelocity;
+	const float ballSize = 10;
+
+	Vector2 paddlePos;
+	Vector2 paddleVelocity;
+	const float paddleWidth = 10;
+	const float paddleHeight = 64;
+	float paddleDirection;
 };
 

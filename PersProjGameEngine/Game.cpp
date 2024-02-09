@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "Timer.h"
+#include <iostream>
+using namespace std;
 
 bool Game::initialize()
 {
@@ -56,28 +58,48 @@ void Game::processInput()
 	{
 		isRunning = false;
 	}
-	// Paddle move
+	// Paddle move Left
 	if (keyboardState[SDL_SCANCODE_Z])
 	{
-		paddleDirection = -1;
+		paddleDirectionLeft = -1;
 	}
 	if (keyboardState[SDL_SCANCODE_S])
 	{
-		paddleDirection = 1;
+		paddleDirectionLeft = 1;
+	}
+	// Paddle move Right
+	if (keyboardState[SDL_SCANCODE_UP])
+	{
+		paddleDirectionRight = -1;
+	}
+	if (keyboardState[SDL_SCANCODE_DOWN])
+	{
+		paddleDirectionRight = 1;
 	}
 }
 
 void Game::update(float dt)
 {
-	// Paddle move
-	paddlePos += paddleVelocity * dt * paddleDirection;
-	if(paddlePos.y < paddleHeight / 2 + wallThickness)
+	// Paddle move left
+	paddlePosLeft += paddleVelocityLeft * dt * paddleDirectionLeft;
+	if(paddlePosLeft.y < paddleHeight / 2 + wallThickness)
 	{
-		paddlePos.y = paddleHeight / 2 + wallThickness;
+		paddlePosLeft.y = paddleHeight / 2 + wallThickness;
 	}
-	if (paddlePos.y > window.getHeight() - paddleHeight / 2 - wallThickness)
+	if (paddlePosLeft.y > window.getHeight() - paddleHeight / 2 - wallThickness)
 	{
-		paddlePos.y = window.getHeight() - paddleHeight / 2 - wallThickness;
+		paddlePosLeft.y = window.getHeight() - paddleHeight / 2 - wallThickness;
+	}
+
+	// Paddle move right
+	paddlePosRight += paddleVelocityRight * dt * paddleDirectionRight;
+	if (paddlePosRight.y < paddleHeight / 2 + wallThickness)
+	{
+		paddlePosRight.y = paddleHeight / 2 + wallThickness;
+	}
+	if (paddlePosRight.y > window.getHeight() - paddleHeight / 2 - wallThickness)
+	{
+		paddlePosRight.y = window.getHeight() - paddleHeight / 2 - wallThickness;
 	}
 
 	//Ball move
@@ -94,20 +116,34 @@ void Game::update(float dt)
 	}
 
 	// Ball-Paddle collision
-	Vector2 diff = ballPos - paddlePos;
-	if (fabsf(diff.y) <= paddleHeight / 2
-		&& fabsf(diff.x) <= paddleWidth / 2 + ballSize / 2
+	Vector2 leftDiff = ballPos - paddlePosLeft;
+	if (fabsf(leftDiff.y) <= paddleHeight / 2
+		&& fabsf(leftDiff.x) <= paddleWidth / 2 + ballSize / 2
 		&& ballVelocity.x < 0)
 	{
 		ballVelocity.x *= -1;
-		ballPos.x = paddlePos.x + paddleWidth / 2 + ballSize / 2;
+		ballPos.x = paddlePosLeft.x + paddleWidth / 2 + ballSize / 2;
 	}
 
-	// Restart automatically
-	if (ballPos.x < 0)
+	Vector2 rightDiff = ballPos - paddlePosRight;
+	if (fabsf(rightDiff.y) <= paddleHeight / 2
+		&& fabsf(rightDiff.x) <= paddleWidth / 2 + ballSize / 2
+		&& ballVelocity.x < 0)
 	{
 		ballVelocity.x *= -1;
+		ballPos.x = paddlePosRight.x + paddleWidth / 2 + ballSize / 2;
+	}
+
+	//Restart automatically
+	if (ballPos.x < 0) {
+		ballVelocity.x *= -1;
 		ballPos.x = window.getWidth() / 2.f;
+		ballPos.y = window.getHeight() / 2.f;
+	}
+	else if (ballPos.x > window.getWidth() - ballSize / 2) {
+		ballVelocity.x *= -1;
+		ballPos.x = window.getWidth() / 2.f;
+		ballPos.y = window.getHeight() / 2.f;
 	}
 }
 
@@ -122,8 +158,11 @@ void Game::render()
 	Rectangle ballRect = { ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize };
 	renderer.drawRect(ballRect);
 
-	Rectangle paddleRect = { paddlePos.x - paddleWidth / 2, paddlePos.y - paddleHeight / 2, paddleWidth, paddleHeight };
-	renderer.drawRect(paddleRect);
+	Rectangle paddleRectLeft = { paddlePosLeft.x - paddleWidth / 2, paddlePosLeft.y - paddleHeight / 2, paddleWidth, paddleHeight };
+	renderer.drawRect(paddleRectLeft);
+
+	Rectangle paddleRectRight = { paddlePosRight.x - paddleWidth / 2, paddlePosRight.y - paddleHeight / 2, paddleWidth, paddleHeight };
+	renderer.drawRect(paddleRectRight);
 
 	renderer.endDraw();
 }

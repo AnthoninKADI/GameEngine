@@ -1,5 +1,2 @@
-﻿  Renderer.cpp
-C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\PersProjGameEngine\Renderer.cpp(32,25): error C2275: 'SDL_Renderer': expected an expression instead of a type
-  Timer.cpp
-  Window.cpp
-  Generating Code...
+﻿  Game.cpp
+  PersProjGameEngine.vcxproj -> C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\x64\Debug\PersProjGameEngine.exe

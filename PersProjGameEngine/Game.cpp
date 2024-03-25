@@ -10,6 +10,7 @@ bool Game::initialize()
 
 	int windowWidth = window.getWidth();
 	int windowHeight = window.getHeight();
+
 	topWall = { 0,0, static_cast<float>(windowWidth), wallThickness };
 	bottomWall = { 0, windowHeight - wallThickness, static_cast<float>(windowWidth), wallThickness };
 	rightWall = { windowWidth - wallThickness, 0, wallThickness, static_cast<float>(windowHeight) };
@@ -94,7 +95,7 @@ void Game::update(float dt)
 {
 	// Paddle move left
 	paddlePosLeft += paddleVelocityLeft * dt * paddleDirectionLeft;
-	if(paddlePosLeft.y < paddleHeight / 2 + wallThickness)
+	if (paddlePosLeft.y < paddleHeight / 2 + wallThickness)
 	{
 		paddlePosLeft.y = paddleHeight / 2 + wallThickness;
 	}
@@ -116,18 +117,27 @@ void Game::update(float dt)
 
 	//Ball move
 	ballPos += ballVelocity * dt;
-	if(ballPos.y < ballSize / 2 + wallThickness)
+
+	// Ball collision with top and bottom walls
+	if (ballPos.y < ballSize / 2 + wallThickness || ballPos.y > window.getHeight() - ballSize / 2 - wallThickness)
 	{
-		ballPos.y = ballSize / 2 + wallThickness;
 		ballVelocity.y *= -1;
-	}
-	else if(ballPos.x > window.getWidth() - ballSize / 2 - wallThickness)
-	{
-		ballPos.x = window.getWidth() - ballSize / 2 - wallThickness;
-		ballVelocity.x *= -1;
+		
+		if (ballPos.y < ballSize / 2 + wallThickness)
+			ballPos.y = ballSize / 2 + wallThickness;
+		else
+			ballPos.y = window.getHeight() - ballSize / 2 - wallThickness;
 	}
 
-	// Ball-Paddle collision
+	// Ball collision with left and right walls
+	if (ballPos.x < 0 || ballPos.x > window.getWidth())
+	{
+		// Restart the game
+		ballVelocity = { 250, 0 }; 
+		ballPos = { window.getWidth() / 2.f, window.getHeight() / 2.f };
+	}
+
+	// Ball-Paddle collision (left paddle)
 	Vector2 leftDiff = ballPos - paddlePosLeft;
 	if (fabsf(leftDiff.y) <= paddleHeight / 2
 		&& fabsf(leftDiff.x) <= paddleWidth / 2 + ballSize / 2
@@ -137,17 +147,18 @@ void Game::update(float dt)
 		ballPos.x = paddlePosLeft.x + paddleWidth / 2 + ballSize / 2;
 	}
 
+	// Ball-Paddle collision (right paddle)
 	Vector2 rightDiff = ballPos - paddlePosRight;
 	if (fabsf(rightDiff.y) <= paddleHeight / 2
 		&& fabsf(rightDiff.x) <= paddleWidth / 2 + ballSize / 2
-		&& ballVelocity.x < 0)
+		&& ballVelocity.x > 0) 
 	{
 		ballVelocity.x *= -1;
-		ballPos.x = paddlePosRight.x + paddleWidth / 2 + ballSize / 2;
+		ballPos.x = paddlePosRight.x - paddleWidth / 2 - ballSize / 2; 
 	}
 
 	//Restart automatically
-	/*if (ballPos.x < 0) {
+	if (ballPos.x < 0) {
 		ballVelocity.x *= -1;
 		ballPos.x = window.getWidth() / 2.f;
 		ballPos.y = window.getHeight() / 2.f;
@@ -156,10 +167,6 @@ void Game::update(float dt)
 		ballVelocity.x *= -1;
 		ballPos.x = window.getWidth() / 2.f;
 		ballPos.y = window.getHeight() / 2.f;
-	}*/
-	if (ballPos.x < 0 || ballPos.x > window.getWidth() - ballSize / 2) {
-		ballVelocity = { 250, 0 }; // Give the ball an initial direction towards a paddle
-		ballPos = { window.getWidth() / 2.f, window.getHeight() / 2.f };
 	}
 }
 
@@ -169,7 +176,6 @@ void Game::render()
 
 	renderer.drawRect(topWall);
 	renderer.drawRect(bottomWall);
-	renderer.drawRect(rightWall);
 
 	Rectangle ballRect = { ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize };
 	renderer.drawRect(ballRect);

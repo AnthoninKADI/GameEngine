@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2-2.0.12\include;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2_image-2.0.5\include;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2_mixer-2.0.4\include;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2_ttf-2.0.15\include;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\rapidjson\include;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\glew-2.1.0\include;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\inc;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2-2.0.12\lib\x64;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2_image-2.0.5\lib\x64;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2_mixer-2.0.4\lib\x64;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\SDL2_ttf-2.0.15\lib\x64;C:\Users\kadia\Desktop\GameEnginePersonalProject\GameEngine\SDL\glew-2.1.0\lib\Release\x64;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\studio\lib;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\SDL\SDL2-2.0.12\include;..\SDL\SDL2_image-2.0.5\include;..\SDL\SDL2_mixer-2.0.4\include;..\SDL\SDL2_ttf-2.0.15\include;..\SDL\rapidjson\include;..\SDL\glew-2.1.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\SDL\SDL2-2.0.12\lib\x64;..\SDL\SDL2_image-2.0.5\lib\x64;..\SDL\SDL2_mixer-2.0.4\lib\x64;..\SDL\SDL2_ttf-2.0.15\lib\x64;..\SDL\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;opengl32.lib;glew32.lib;fmodL64_vc.lib;fmodstudioL64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

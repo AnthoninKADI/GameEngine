@@ -21,7 +21,7 @@ private:
 	Game():
 		isRunning(true),
 		ballPos({100, 100}),
-		ballVelocity({500, 500}),
+		ballVelocity({250, 250}),
 		paddlePosLeft({50, 100}), //Left paddle
 		paddleVelocityLeft({0, 450}),
 		paddleDirectionLeft(0),
@@ -67,6 +67,8 @@ private:
 
 	const float paddleWidth = 10;
 	const float paddleHeight = 64;
-	
+
+	bool prevKeyboardStateLeft[SDL_NUM_SCANCODES] = { false };
+	bool prevKeyboardStateRight[SDL_NUM_SCANCODES] = { false };
 };
 

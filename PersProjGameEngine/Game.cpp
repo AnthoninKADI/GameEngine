@@ -59,23 +59,35 @@ void Game::processInput()
 		isRunning = false;
 	}
 	// Paddle move Left
-	if (keyboardState[SDL_SCANCODE_Z])
+	if (keyboardState[SDL_SCANCODE_W])
 	{
 		paddleDirectionLeft = -1;
 	}
-	if (keyboardState[SDL_SCANCODE_S])
+	else if (keyboardState[SDL_SCANCODE_S])
 	{
 		paddleDirectionLeft = 1;
 	}
+	else 
+	{
+		paddleDirectionLeft = 0;
+	}
+
 	// Paddle move Right
 	if (keyboardState[SDL_SCANCODE_UP])
 	{
 		paddleDirectionRight = -1;
 	}
-	if (keyboardState[SDL_SCANCODE_DOWN])
+	else if (keyboardState[SDL_SCANCODE_DOWN])
 	{
 		paddleDirectionRight = 1;
 	}
+	else 
+	{
+		paddleDirectionRight = 0;
+	}
+
+	memcpy(prevKeyboardStateLeft, keyboardState, SDL_NUM_SCANCODES * sizeof(Uint8));
+	memcpy(prevKeyboardStateRight, keyboardState, SDL_NUM_SCANCODES * sizeof(Uint8));
 }
 
 void Game::update(float dt)
@@ -109,7 +121,7 @@ void Game::update(float dt)
 		ballPos.y = ballSize / 2 + wallThickness;
 		ballVelocity.y *= -1;
 	}
-	if(ballPos.x > window.getWidth() - ballSize / 2 - wallThickness)
+	else if(ballPos.x > window.getWidth() - ballSize / 2 - wallThickness)
 	{
 		ballPos.x = window.getWidth() - ballSize / 2 - wallThickness;
 		ballVelocity.x *= -1;
@@ -135,7 +147,7 @@ void Game::update(float dt)
 	}
 
 	//Restart automatically
-	if (ballPos.x < 0) {
+	/*if (ballPos.x < 0) {
 		ballVelocity.x *= -1;
 		ballPos.x = window.getWidth() / 2.f;
 		ballPos.y = window.getHeight() / 2.f;
@@ -144,6 +156,10 @@ void Game::update(float dt)
 		ballVelocity.x *= -1;
 		ballPos.x = window.getWidth() / 2.f;
 		ballPos.y = window.getHeight() / 2.f;
+	}*/
+	if (ballPos.x < 0 || ballPos.x > window.getWidth() - ballSize / 2) {
+		ballVelocity = { 250, 0 }; // Give the ball an initial direction towards a paddle
+		ballPos = { window.getWidth() / 2.f, window.getHeight() / 2.f };
 	}
 }
 

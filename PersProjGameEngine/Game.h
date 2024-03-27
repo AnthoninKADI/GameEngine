@@ -19,13 +19,12 @@ public:
     Game(Game&&) = delete;
     Game& operator=(Game&&) = delete;
 
-private:
     Game() :
         isRunning(true),
-        ballPos({ 100, 100 }),
+        ballPos({ window.getWidth() / 2.f, window.getHeight() / 2.f }),
         ballVelocity({ 250, 250 }),
-        paddlePos({ 400, 720 }), 
-        paddleVelocity({ 10, 0 }), 
+        paddlePos({ 400, 720 }),
+        paddleVelocity({ 10, 0 }),
         wallThickness(10),
         topWall(Rectangle()),
         rightWall(Rectangle()),
@@ -58,7 +57,7 @@ private:
 
     Vector2 paddlePos;
     Vector2 paddleVelocity;
-    const float paddleWidth = 100; 
-    const float paddleHeight = 20; 
+    const float paddleWidth = 100;
+    const float paddleHeight = 20;
 };
 

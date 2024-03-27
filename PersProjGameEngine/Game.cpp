@@ -74,6 +74,15 @@ void Game::update(float dt)
         ballVelocity.x *= -1;
     }
 
+    for (const auto& rect : rectangles) {
+        if (ballPos.y + ballSize / 2 > rect.y && ballPos.y - ballSize / 2 < rect.y + 20 &&
+            ballPos.x + ballSize / 2 > rect.x && ballPos.x - ballSize / 2 < rect.x + 90)
+        {
+            ballVelocity.y *= -1;
+            break;
+        }
+    }
+
     // Collision avec le paddle
     if (ballPos.y + ballSize / 2 > paddlePos.y && ballPos.y - ballSize / 2 < paddlePos.y + paddleHeight &&
         ballPos.x + ballSize / 2 > paddlePos.x && ballPos.x - ballSize / 2 < paddlePos.x + paddleWidth)
@@ -88,6 +97,15 @@ void Game::update(float dt)
         ballVelocity = { 250, 250 };
     }
 }
+
+bool Game::checkCollision(const Rectangle& rect1, const Rectangle& rect2) const
+{
+    return (rect1.x < rect2.x + rect2.width &&
+        rect1.x + rect1.width > rect2.x &&
+        rect1.y < rect2.y + rect2.height &&
+        rect1.y + rect1.height > rect2.y);
+}
+
 void Game::render(int numLines)
 {
     renderer.beginDraw();
@@ -123,7 +141,13 @@ void Game::render(int numLines)
 
         Rectangle rect = { x, y, rectWidth, rectHeight }; 
         renderer.drawRect(rect); 
+        addRec(rect);
     }
 
     renderer.endDraw();
+}
+
+void Game::addRec(Rectangle recta)
+{
+    rectangles.emplace_back(recta);
 }

@@ -28,7 +28,8 @@ public:
         wallThickness(10),
         topWall(Rectangle()),
         rightWall(Rectangle()),
-        leftWall(Rectangle())
+        leftWall(Rectangle()),
+        ballRect({ ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize })
     {}
 
 public:
@@ -41,6 +42,7 @@ private:
     void update(float dt);
     void render(int numLines);
     std::vector<Rectangle> rectangles;
+    void addRec(Rectangle recta);
 
     bool isRunning;
     Window window;
@@ -54,10 +56,13 @@ private:
     Vector2 ballPos;
     Vector2 ballVelocity;
     const float ballSize = 10;
+    Rectangle ballRect; // Rectangle pour représenter la boîte de collision du cube
 
     Vector2 paddlePos;
     Vector2 paddleVelocity;
     const float paddleWidth = 100;
     const float paddleHeight = 20;
-};
 
+    // Fonction de détection de collision
+    bool checkCollision(const Rectangle& rect1, const Rectangle& rect2) const;
+};

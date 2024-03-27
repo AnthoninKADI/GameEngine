@@ -11,16 +11,47 @@ bool Game::initialize()
     return isWindowInit && isRendererInit;
 }
 
+void Game::load()
+{
+    int rectWidth = 90;
+    int rectHeight = 20;
+    int spacing = 2;
+    int paddingVertical = 4;
+    int numLines = 9; // Nombres de lignes 
+
+    int windowWidth = window.getWidth();
+    int windowHeight = window.getHeight();
+
+    int numRectanglesPerRow = (windowWidth - 8) / (rectWidth + spacing);
+    int numRectanglesTotal = numRectanglesPerRow * numLines;
+
+    int startX = 4;
+    int startY = paddingVertical;
+
+    for (int i = 0; i < numRectanglesTotal; ++i)
+    {
+
+        int rowIndex = i / numRectanglesPerRow;
+        int columnIndex = i % numRectanglesPerRow;
+        int x = startX + columnIndex * (rectWidth + spacing);
+        int y = startY + rowIndex * (rectHeight + paddingVertical);
+
+        Rectangle rect = { x, y, rectWidth, rectHeight };
+        
+        addRec(rect);
+    }
+}
+
 void Game::loop()
 {
     Timer timer;
-    int numLines = 9; // Nombres de lignes 
+
     while (isRunning)
     {
         float dt = timer.computeDeltaTime() / 1000.0f;
         processInput();
         update(dt);
-        render(numLines); 
+        render(); 
         timer.delayTime();
     }
 }
@@ -74,11 +105,14 @@ void Game::update(float dt)
         ballVelocity.x *= -1;
     }
 
-    for (const auto& rect : rectangles) {
+    for (size_t i = 0; i < rectangles.size(); ++i) {
+        const auto& rect = rectangles[i];
         if (ballPos.y + ballSize / 2 > rect.y && ballPos.y - ballSize / 2 < rect.y + 20 &&
             ballPos.x + ballSize / 2 > rect.x && ballPos.x - ballSize / 2 < rect.x + 90)
         {
+            cout << "Collision avec le rectangle à l'index " << i << endl;
             ballVelocity.y *= -1;
+            removeRectangle(i);
             break;
         }
     }
@@ -106,7 +140,14 @@ bool Game::checkCollision(const Rectangle& rect1, const Rectangle& rect2) const
         rect1.y + rect1.height > rect2.y);
 }
 
-void Game::render(int numLines)
+void Game::removeRectangle(int index)
+{
+    if (index >= 0 && index < rectangles.size()) {
+        rectangles.erase(rectangles.begin() + index);
+    }
+}
+
+void Game::render()
 {
     renderer.beginDraw();
 
@@ -116,32 +157,9 @@ void Game::render(int numLines)
     Rectangle ballRect = { ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize };
     renderer.drawRect(ballRect);
 
-
-    int rectWidth = 90; 
-    int rectHeight = 20; 
-    int spacing = 2; 
-    int paddingVertical = 4; 
-
-    int windowWidth = window.getWidth();
-    int windowHeight = window.getHeight();
-
-    int numRectanglesPerRow = (windowWidth - 8) / (rectWidth + spacing); 
-    int numRectanglesTotal = numRectanglesPerRow * numLines; 
-
-    int startX = 4; 
-    int startY = paddingVertical; 
-
-    for (int i = 0; i < numRectanglesTotal; ++i)
+    for (auto rect : rectangles)
     {
-        
-        int rowIndex = i / numRectanglesPerRow;
-        int columnIndex = i % numRectanglesPerRow;
-        int x = startX + columnIndex * (rectWidth + spacing);
-        int y = startY + rowIndex * (rectHeight + paddingVertical);
-
-        Rectangle rect = { x, y, rectWidth, rectHeight }; 
-        renderer.drawRect(rect); 
-        addRec(rect);
+        renderer.drawRect(rect);
     }
 
     renderer.endDraw();

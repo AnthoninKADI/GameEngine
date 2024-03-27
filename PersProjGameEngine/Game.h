@@ -35,12 +35,14 @@ public:
 public:
     bool initialize();
     void loop();
+    void load();
     void close();
+    void removeRectangle(int index);
 
 private:
     void processInput();
     void update(float dt);
-    void render(int numLines);
+    void render();
     std::vector<Rectangle> rectangles;
     void addRec(Rectangle recta);
 

@@ -8,25 +8,19 @@ bool Game::initialize()
     bool isWindowInit = window.initialize();
     bool isRendererInit = renderer.initialize(window);
 
-    int windowWidth = window.getWidth();
-    int windowHeight = window.getHeight();
-
-    topWall = { 0,0, static_cast<float>(windowWidth), wallThickness };
-    rightWall = { windowWidth - wallThickness, 0, wallThickness, static_cast<float>(windowHeight) };
-    leftWall = { 0, 0, wallThickness, static_cast<float>(windowHeight) }; 
-
     return isWindowInit && isRendererInit;
 }
 
 void Game::loop()
 {
     Timer timer;
+    int numLines = 9; // Nombres de lignes 
     while (isRunning)
     {
         float dt = timer.computeDeltaTime() / 1000.0f;
         processInput();
         update(dt);
-        render();
+        render(numLines); 
         timer.delayTime();
     }
 }
@@ -53,7 +47,6 @@ void Game::processInput()
 
     const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
 
-    // Déplacement continu du paddle de gauche à droite
     if (keyboardState[SDL_SCANCODE_LEFT])
     {
         paddlePos.x -= paddleVelocity.x;
@@ -95,20 +88,42 @@ void Game::update(float dt)
         ballVelocity = { 250, 250 };
     }
 }
-
-void Game::render()
+void Game::render(int numLines)
 {
     renderer.beginDraw();
 
-    renderer.drawRect(topWall);
-    renderer.drawRect(rightWall);
-    renderer.drawRect(leftWall);
+    Rectangle paddleRect = { paddlePos.x, paddlePos.y, paddleWidth, paddleHeight };
+    renderer.drawRect(paddleRect);
 
     Rectangle ballRect = { ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize };
     renderer.drawRect(ballRect);
 
-    Rectangle paddleRect = { paddlePos.x, paddlePos.y, paddleWidth, paddleHeight };
-    renderer.drawRect(paddleRect);
+
+    int rectWidth = 90; 
+    int rectHeight = 20; 
+    int spacing = 2; 
+    int paddingVertical = 4; 
+
+    int windowWidth = window.getWidth();
+    int windowHeight = window.getHeight();
+
+    int numRectanglesPerRow = (windowWidth - 8) / (rectWidth + spacing); 
+    int numRectanglesTotal = numRectanglesPerRow * numLines; 
+
+    int startX = 4; 
+    int startY = paddingVertical; 
+
+    for (int i = 0; i < numRectanglesTotal; ++i)
+    {
+        
+        int rowIndex = i / numRectanglesPerRow;
+        int columnIndex = i % numRectanglesPerRow;
+        int x = startX + columnIndex * (rectWidth + spacing);
+        int y = startY + rowIndex * (rectHeight + paddingVertical);
+
+        Rectangle rect = { x, y, rectWidth, rectHeight }; 
+        renderer.drawRect(rect); 
+    }
 
     renderer.endDraw();
 }

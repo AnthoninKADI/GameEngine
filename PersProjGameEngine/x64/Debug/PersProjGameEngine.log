@@ -1,4 +1,10 @@
 ﻿  Game.cpp
-  Renderer.cpp
-  Generating Code...
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,28): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,28): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,31): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,31): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,34): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,34): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,45): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(127,45): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   PersProjGameEngine.vcxproj -> C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\x64\Debug\PersProjGameEngine.exe

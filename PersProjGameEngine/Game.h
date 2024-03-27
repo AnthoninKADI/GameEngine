@@ -1,7 +1,9 @@
 #pragma once
 #include "Window.h"
 #include "Renderer.h"
+#include "Rectangle.h"
 #include "Vector2.h"
+#include <vector>
 
 class Game
 {
@@ -38,7 +40,8 @@ public:
 private:
     void processInput();
     void update(float dt);
-    void render();
+    void render(int numLines);
+    std::vector<Rectangle> rectangles;
 
     bool isRunning;
     Window window;

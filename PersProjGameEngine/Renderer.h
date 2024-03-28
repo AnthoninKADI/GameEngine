@@ -12,7 +12,8 @@ public:
 
 	bool initialize(Window& window);
 	void beginDraw();
-	void drawRect(Rectangle& rect);
+	void drawRect(const Rectangle& rect);
+	void drawPaddle(const Rectangle& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	void endDraw();
 	void close();
 

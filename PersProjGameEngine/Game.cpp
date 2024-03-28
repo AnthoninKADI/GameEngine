@@ -155,7 +155,7 @@ void Game::render()
     renderer.beginDraw();
 
     Rectangle paddleRect = { paddlePos.x, paddlePos.y, paddleWidth, paddleHeight };
-    renderer.drawRect(paddleRect);
+    renderer.drawPaddle(paddleRect, 0, 255, 255, 255);
 
     for (auto rect : rectangles)
     {

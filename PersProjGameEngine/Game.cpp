@@ -155,7 +155,27 @@ void Game::render()
     renderer.beginDraw();
 
     Rectangle paddleRect = { paddlePos.x, paddlePos.y, paddleWidth, paddleHeight };
-    renderer.drawPaddle(paddleRect, 0, 255, 255, 255);
+    renderer.drawPaddle(paddleRect, 255, 255, 255, 255);
+
+    // Track Limit
+    Rectangle topLimit = { 0, 0, 1024, 100 };
+    renderer.drawRect(topLimit);
+
+    Rectangle botLimit = { 0, 668, 1024, 100 };
+    renderer.drawRect(botLimit);
+
+    Rectangle leftLimit = { 0, 0, 25, 768 };
+    renderer.drawRect(leftLimit);
+
+    Rectangle rightLimit = { 999, 0, 25, 768 };
+    renderer.drawRect(rightLimit);
+
+    // Start & Finish Line
+    Rectangle finishLine = { 25, 100, 10, 50 };
+    renderer.drawPaddle(finishLine, 255, 0, 0, 255);
+
+    Rectangle startLine = { 989, 618, 10, 50 };
+    renderer.drawPaddle(startLine, 0, 255, 0, 255);
 
     for (auto rect : rectangles)
     {

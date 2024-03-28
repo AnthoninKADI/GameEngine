@@ -29,7 +29,7 @@ void Renderer::endDraw()
 
 void Renderer::drawRect(const Rectangle& rect)
 {
-	SDL_SetRenderDrawColor(SDLRenderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(SDLRenderer, 0, 0, 0, 255);
 	SDL_Rect SDLRect = rect.toSDLRect();
 	SDL_RenderFillRect(SDLRenderer, &SDLRect);
 }

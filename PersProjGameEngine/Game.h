@@ -23,7 +23,7 @@ public:
         isRunning(true),
         ballPos({ window.getWidth() / 2.f, window.getHeight() / 2.f }),
         ballVelocity({ 250, 250 }),
-        paddlePos({ 400, 720 }),
+        paddlePos({ 475, 400 }),
         paddleVelocity({ 5, 5 }),
         wallThickness(10),
         topWall(Rectangle()),

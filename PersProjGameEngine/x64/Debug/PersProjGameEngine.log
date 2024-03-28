@@ -1,3 +1,5 @@
 ﻿  Game.cpp
 C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\PersProjGameEngine\Game.cpp(118,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Renderer.cpp
+  Generating Code...
   PersProjGameEngine.vcxproj -> C:\Users\anthonin.kadi\Documents\GitHub\GameEngine\x64\Debug\PersProjGameEngine.exe

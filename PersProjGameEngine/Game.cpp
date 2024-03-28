@@ -13,33 +13,33 @@ bool Game::initialize()
 
 void Game::load()
 {
-    int rectWidth = 90;
-    int rectHeight = 20;
-    int spacing = 2;
-    int paddingVertical = 4;
-    int numLines = 9; // Nombres de lignes 
+    //int rectWidth = 90;
+    //int rectHeight = 20;
+    //int spacing = 2;
+    //int paddingVertical = 4;
+    //int numLines = 1; // Nombres de lignes 
 
-    int windowWidth = window.getWidth();
-    int windowHeight = window.getHeight();
+    //int windowWidth = window.getWidth();
+    //int windowHeight = window.getHeight();
 
-    int numRectanglesPerRow = (windowWidth - 8) / (rectWidth + spacing);
-    int numRectanglesTotal = numRectanglesPerRow * numLines;
+    //int numRectanglesPerRow = (windowWidth - 8) / (rectWidth + spacing);
+    //int numRectanglesTotal = numRectanglesPerRow * numLines;
 
-    int startX = 4;
-    int startY = paddingVertical;
+    //int startX = 4;
+    //int startY = paddingVertical;
 
-    for (int i = 0; i < numRectanglesTotal; ++i)
-    {
+    //for (int i = 0; i < numRectanglesTotal; ++i)
+    //{
 
-        int rowIndex = i / numRectanglesPerRow;
-        int columnIndex = i % numRectanglesPerRow;
-        int x = startX + columnIndex * (rectWidth + spacing);
-        int y = startY + rowIndex * (rectHeight + paddingVertical);
+    //    int rowIndex = i / numRectanglesPerRow;
+    //    int columnIndex = i % numRectanglesPerRow;
+    //    int x = startX + columnIndex * (rectWidth + spacing);
+    //    int y = startY + rowIndex * (rectHeight + paddingVertical);
 
-        Rectangle rect = { x, y, rectWidth, rectHeight };
-        
-        addRec(rect);
-    }
+    //    Rectangle rect = { x, y, rectWidth, rectHeight };
+    //    
+    //    addRec(rect);
+    //}
 }
 
 void Game::loop()
@@ -90,21 +90,24 @@ void Game::processInput()
         if (paddlePos.x + paddleWidth > window.getWidth() - wallThickness)
             paddlePos.x = window.getWidth() - paddleWidth - wallThickness;
     }
+
+    if (keyboardState[SDL_SCANCODE_UP])
+    {
+        paddlePos.y -= paddleVelocity.y;
+        if (paddlePos.y < wallThickness)
+            paddlePos.y = wallThickness;
+    }
+
+    else if (keyboardState[SDL_SCANCODE_DOWN])
+    {
+        paddlePos.y += paddleVelocity.y;
+        if (paddlePos.y + paddleHeight > window.getHeight() - wallThickness)
+            paddlePos.y = window.getHeight() - paddleHeight - wallThickness;
+    }
 }
 
 void Game::update(float dt)
 {
-    ballPos += ballVelocity * dt;
-
-    if (ballPos.y < wallThickness) 
-    {
-        ballVelocity.y *= -1; 
-    }
-    if (ballPos.x < wallThickness || ballPos.x > window.getWidth() - wallThickness)
-    {
-        ballVelocity.x *= -1;
-    }
-
     for (size_t i = 0; i < rectangles.size(); ++i) {
         const auto& rect = rectangles[i];
         if (ballPos.y + ballSize / 2 > rect.y && ballPos.y - ballSize / 2 < rect.y + 20 &&
@@ -153,9 +156,6 @@ void Game::render()
 
     Rectangle paddleRect = { paddlePos.x, paddlePos.y, paddleWidth, paddleHeight };
     renderer.drawRect(paddleRect);
-
-    Rectangle ballRect = { ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize };
-    renderer.drawRect(ballRect);
 
     for (auto rect : rectangles)
     {

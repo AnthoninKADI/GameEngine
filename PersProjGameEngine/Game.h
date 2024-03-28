@@ -24,7 +24,7 @@ public:
         ballPos({ window.getWidth() / 2.f, window.getHeight() / 2.f }),
         ballVelocity({ 250, 250 }),
         paddlePos({ 400, 720 }),
-        paddleVelocity({ 10, 0 }),
+        paddleVelocity({ 5, 5 }),
         wallThickness(10),
         topWall(Rectangle()),
         rightWall(Rectangle()),
@@ -62,8 +62,8 @@ private:
 
     Vector2 paddlePos;
     Vector2 paddleVelocity;
-    const float paddleWidth = 100;
-    const float paddleHeight = 20;
+    const float paddleWidth = 35;
+    const float paddleHeight = 35;
 
     // Fonction de détection de collision
     bool checkCollision(const Rectangle& rect1, const Rectangle& rect2) const;

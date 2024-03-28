@@ -171,11 +171,30 @@ void Game::render()
     renderer.drawRect(rightLimit);
 
     // Start & Finish Line
-    Rectangle finishLine = { 25, 100, 10, 50 };
+    Rectangle finishLine = { 885, 440, 115, 10 };
     renderer.drawPaddle(finishLine, 255, 0, 0, 255);
 
-    Rectangle startLine = { 989, 618, 10, 50 };
+    Rectangle startLine = { 989, 568, 10, 100 };
     renderer.drawPaddle(startLine, 0, 255, 0, 255);
+
+    // Interior Track Limit
+    Rectangle limit1 = { 150, 548, 1000, 20 };
+    renderer.drawRect(limit1);
+
+    Rectangle limit2 = { 150, 200, 20, 350 };
+    renderer.drawRect(limit2);
+
+    Rectangle limit3 = { 150, 200, 755, 20 };
+    renderer.drawRect(limit3);
+
+    Rectangle limit4 = { 885, 200, 20, 350 };
+    renderer.drawRect(limit4);
+
+    Rectangle limit5 = { 885, 450, 120, 100 };
+    renderer.drawRect(limit5);
+
+    Rectangle limit6 = { 150, 200, 755, 350 };
+    renderer.drawRect(limit6);
 
     for (auto rect : rectangles)
     {

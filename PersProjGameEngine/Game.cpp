@@ -13,33 +13,7 @@ bool Game::initialize()
 
 void Game::load()
 {
-    //int rectWidth = 90;
-    //int rectHeight = 20;
-    //int spacing = 2;
-    //int paddingVertical = 4;
-    //int numLines = 1; // Nombres de lignes 
 
-    //int windowWidth = window.getWidth();
-    //int windowHeight = window.getHeight();
-
-    //int numRectanglesPerRow = (windowWidth - 8) / (rectWidth + spacing);
-    //int numRectanglesTotal = numRectanglesPerRow * numLines;
-
-    //int startX = 4;
-    //int startY = paddingVertical;
-
-    //for (int i = 0; i < numRectanglesTotal; ++i)
-    //{
-
-    //    int rowIndex = i / numRectanglesPerRow;
-    //    int columnIndex = i % numRectanglesPerRow;
-    //    int x = startX + columnIndex * (rectWidth + spacing);
-    //    int y = startY + rowIndex * (rectHeight + paddingVertical);
-
-    //    Rectangle rect = { x, y, rectWidth, rectHeight };
-    //    
-    //    addRec(rect);
-    //}
 }
 
 void Game::loop()
@@ -120,18 +94,14 @@ void Game::update(float dt)
         }
     }
 
-    // Collision avec le paddle
-    if (ballPos.y + ballSize / 2 > paddlePos.y && ballPos.y - ballSize / 2 < paddlePos.y + paddleHeight &&
-        ballPos.x + ballSize / 2 > paddlePos.x && ballPos.x - ballSize / 2 < paddlePos.x + paddleWidth)
-    {
-        ballVelocity.y *= -1;
-    }
+    paddleRect.x = paddlePos.x;
+    paddleRect.y = paddlePos.y;
 
-    // Réinitialisation 
-    if (ballPos.y > window.getHeight())
-    {
-        ballPos = { window.getWidth() / 2.f, window.getHeight() / 2.f };
-        ballVelocity = { 250, 250 };
+    // Collision avec la ligne de fin
+    if (checkCollision(paddleRect, finishLine)) {
+        paddlePos = { 949, 607 };
+        paddleRect.x = paddlePos.x; 
+        paddleRect.y = paddlePos.y;
     }
 }
 

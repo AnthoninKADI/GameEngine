@@ -29,7 +29,9 @@ public:
         topWall(Rectangle()),
         rightWall(Rectangle()),
         leftWall(Rectangle()),
-        ballRect({ ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize })
+        ballRect({ ballPos.x - ballSize / 2, ballPos.y - ballSize / 2, ballSize, ballSize }),
+        paddleRect({ paddlePos.x, paddlePos.y, paddleWidth, paddleHeight }),
+        finishLine({885, 440, 115, 10})
     {}
 
 public:
@@ -53,6 +55,8 @@ private:
     Rectangle topWall;
     Rectangle rightWall;
     Rectangle leftWall;
+    Rectangle finishLine;
+    Rectangle paddleRect;
     const float wallThickness;
 
     Vector2 ballPos;

@@ -159,6 +159,7 @@ void Game::render()
     Rectangle limit6 = { 150, 200, 755, 350 };
     renderer.drawRect(limit6);
 
+
     for (auto rect : rectangles)
     {
         renderer.drawRect(rect);

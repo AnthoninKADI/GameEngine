@@ -82,16 +82,9 @@ void Game::processInput()
 
 void Game::update(float dt)
 {
-    for (size_t i = 0; i < rectangles.size(); ++i) {
-        const auto& rect = rectangles[i];
-        if (ballPos.y + ballSize / 2 > rect.y && ballPos.y - ballSize / 2 < rect.y + 20 &&
-            ballPos.x + ballSize / 2 > rect.x && ballPos.x - ballSize / 2 < rect.x + 90)
-        {
-            cout << "Collision avec le rectangle à l'index " << i << endl;
-            ballVelocity.y *= -1;
-            removeRectangle(i);
-            break;
-        }
+    if (checkCollisionWithLimits(paddleRect)) 
+    {
+        cout << "Collision avec " << endl;
     }
 
     paddleRect.x = paddlePos.x;
@@ -177,4 +170,23 @@ void Game::render()
 void Game::addRec(Rectangle recta)
 {
     rectangles.emplace_back(recta);
+}
+
+bool Game::checkCollisionWithLimits(const Rectangle& rect)
+{
+    if (checkCollision(rect, topWall) ||
+        checkCollision(rect, botLimit) ||
+        checkCollision(rect, rightLimit) ||
+        checkCollision(rect, leftLimit) ||
+        checkCollision(rect, limit1) ||
+        checkCollision(rect, limit2) ||
+        checkCollision(rect, limit3) ||
+        checkCollision(rect, limit4) ||
+        checkCollision(rect, limit5) ||
+        checkCollision(rect, limit6))
+    {
+        return true; 
+    }
+
+    return false; 
 }

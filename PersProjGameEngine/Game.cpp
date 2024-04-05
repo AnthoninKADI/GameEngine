@@ -84,7 +84,7 @@ void Game::update(float dt)
 {
     if (checkCollisionWithLimits(paddleRect)) 
     {
-        cout << "Collision avec " << endl;
+        paddlePos = { 949, 607 };
     }
 
     paddleRect.x = paddlePos.x;
@@ -168,11 +168,6 @@ void Game::render()
     }
 
     renderer.endDraw();
-}
-
-void Game::addRec(Rectangle recta)
-{
-    rectangles.emplace_back(recta);
 }
 
 bool Game::checkCollisionWithLimits(const Rectangle& rect)

@@ -89,6 +89,8 @@ void Game::update(float dt)
 
     paddleRect.x = paddlePos.x;
     paddleRect.y = paddlePos.y;
+    paddleRect.width = paddleWidth;
+    paddleRect.height = paddleHeight;
 
     // Collision avec la ligne de fin
     if (checkCollision(paddleRect, finishLine)) {
@@ -175,7 +177,7 @@ void Game::addRec(Rectangle recta)
 
 bool Game::checkCollisionWithLimits(const Rectangle& rect)
 {
-    if (checkCollision(rect, topWall) ||
+    if (checkCollision(rect, topLimit) ||
         checkCollision(rect, botLimit) ||
         checkCollision(rect, rightLimit) ||
         checkCollision(rect, leftLimit) ||
